@@ -8,6 +8,8 @@ struct Produto{
     char status[10];
 };
 
+//Função void para fazer a venda de produtos, verificando se este está disponível ou não antes de fazer a venda 
+
 void venda(int cont, struct Produto *estoque) {
     int i, codprod;
 
@@ -21,12 +23,12 @@ void venda(int cont, struct Produto *estoque) {
 
 
 
-    printf("\nDigite o c�digo do produto a ser vendido:\n");
+    printf("\nDigite o código do produto a ser vendido:\n");
     scanf("%d", &codprod);
 
     for (i = 0; i < cont; i++) {
         if (estoque[i].codigo == codprod) {
-            if (estoque[i].status != "Dispon�vel") {
+            if (estoque[i].status != "Disponível") {
                 printf("O produto com codigo %d ja foi vendido.\n", codprod);
                 return;
             } else {
@@ -54,7 +56,7 @@ void venda(int cont, struct Produto *estoque) {
 
 
 
-
+//Função void que irá imprimir o conteúdo dp arquivo txt que contém o estoque.
 void listar() {
 
     int codigo;
@@ -81,6 +83,7 @@ void listar() {
     fclose(f);
 }
 
+//Função void que procura o produto pelo seu código e faz a exclusão deste do arquivo txt.
 void excluirprod() {
     int cod, codigo;
     char nome[10];
@@ -95,12 +98,12 @@ void excluirprod() {
 
     FILE *temp = fopen("temporario.txt", "w+");
     if (temp == NULL) {
-        printf("Erro ao criar arquivo tempor�rio.\n");
+        printf("Erro ao criar arquivo temporário.\n");
         fclose(f);
         return;
     }
 
-    printf("Escreva o c�digo do produto a ser apagado: ");
+    printf("Escreva o código do produto a ser apagado: ");
     scanf("%d", &cod);
 
     int encontrado = 0;
@@ -117,16 +120,16 @@ void excluirprod() {
     fclose(temp);
 
     if (!encontrado) {
-        printf("Produto n�o encontrado.\n");
+        printf("Produto não encontrado.\n");
     } else {
         remove("estoque.txt");
         rename("temporario.txt", "estoque.txt");
-        printf("Produto exclu�do com sucesso.\n");
+        printf("Produto excluído com sucesso.\n");
     }
 }
 
 
-
+//Função void que irá adicionar um novo produto ao arquivo txt.
 void novoproduto(){
     int codigonov, codigo;
     char nome[10];
@@ -140,7 +143,7 @@ void novoproduto(){
     }
 
 
-    printf("C�digo do novo produto:\n");
+    printf("Código do novo produto:\n");
     scanf("%d", &codigonov);
 
      codigo = 0;
@@ -173,6 +176,7 @@ void novoproduto(){
 
 }
 
+//Main vai ler opções e chamar as funções corretas
 int main() {
     int opcao;
      int i = 0, cont;
@@ -234,7 +238,7 @@ int main() {
             break;
 
         default:
-            printf("Op��o inv�lida. Tente novamente.\n");
+            printf("Opção inválida. Tente novamente.\n");
             break;
         }
     } while (opcao != 5);
